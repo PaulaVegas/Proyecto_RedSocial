@@ -7,26 +7,25 @@
 ![Made with JavaScript](https://img.shields.io/badge/Made%20with-JavaScript-yellow?logo=javascript)
 ![Visual Studio Code](https://img.shields.io/badge/Editor-VSCode-blue?logo=visualstudiocode)
 
-## 📘 Introducción
+## 📘 Introduction
 
-En este proyecto se combinan los conocimientos adquiridos en las
-tecnologías node + express, además de MongoDB/mongoose.
-
----
+This project combines the knowledge acquired in node + express, along with MongoDB/mongoose.
 
 ---
 
-## 🎯 Objetivos del Proyecto
+---
 
-Desarrollo de una API REST capaz de lo siguiente:
+## 🎯 Project Objectives
 
-- Registro de usuarios usando Bcrypt.
-- Login de usuarios + token + middleware.
-- CRUD funcional.
-- Dar/quitar Like a post.
-- Backend disponible en producción.
+REST API capable of:
 
-## 🛠️ Stack Tecnológico
+- User registration using Bcrypt.
+- User login + token + middleware.
+- Fully functional CRUD.
+- Like/unlike a post.
+- Backend deployed in production.
+
+## 🛠️ Tech Stack
 
 [![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 
@@ -34,77 +33,77 @@ Desarrollo de una API REST capaz de lo siguiente:
 
 [![Express](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)](https://expressjs.com/)
 
-## 📦 Funcionalidad de la API
+## 📦 API Functionality
 
-Se desarrolla una API RESTful para gestionar una red social. Esta API incluye las operaciones básicas CRUD:
+API RESTful capable of managing a social network. It includes the basic CRUD operations:
 
 - **GET**
 - **POST**
 - **PUT/PATCH**
 - **DELETE**
 
-## ✅ Requisitos
+## ✅ Requirements
 
-- Tener instalado **Node.js**.
-- Tener instalado **MongoDB Atlas** (o acceso a una base de datos MongoDB).
-- Instalar dependencias con:
+- **Node.js**.
+- **MongoDB Atlas** (or access to a MongoDB database).
+- Install dependencies:
 
 ```bash
 npm install
 ```
 
-## 🚀 Ejecutar el Proyecto
+## 🚀 Running the project
 
 ```bash
-node index.js
+npm start
 ```
 
 ### 🎁 Bonus
 
-- 🔐 Autenticación y seguridad
+- 🔐 Authentication and Security
 
-  - Middleware para verificar autoría de comentarios antes de editar o eliminar.
+  - Middleware to verify comment ownership before editing or deleting.
 
-  - Validación de login solo tras confirmar correo electrónico.
+  - Login validation only after confirming email.
 
-  - Envío de correo de confirmación en el registro.
+  - Sending confirmation email upon registration.
 
-- 📦 Gestión de archivos
+- 📦 File Management
 
-  - Subida de imágenes con multer al crear o actualizar:
+  - Image uploads with multer when creating or updating:
 
     - Posts
 
-    - Comentarios
+    - Comments
 
-    - Usuarios
+    - Users
 
-- 👥 Sistema de followers
+- 👥 Follower system
 
-  - Seguir y dejar de seguir a otros usuarios.
+  - Follow and unfollow other users.
 
-  - Endpoint para obtener los seguidores y posts del usuario conectado, incluyendo nombres de los followers.
+  - Endpoint to get the followers and posts of the logged-in user, including followers’ names.
 
-- 💬 Comentarios
+- 💬 Comments
 
-  - CRUD completo de comentarios.
+  - Full `comments` CRUD.
 
-  - Dar y quitar likes a comentarios.
+- Like and unlike comments.
 
-- 🔍 Búsquedas y relaciones
+- 🔍  Searches and Relationships
 
-  - Buscar usuario por nombre o ID.
+  - Search users by name or ID.
 
-  - Endpoint para:
+  - Endpoint to:
 
-    - Obtener todos los posts con su autor y comentarios (con datos del autor de cada comentario).
+    - Get all posts with their author and comments (including each comment’s author data).
 
-    - Obtener la información del usuario conectado, sus posts, número de seguidores y nombres de sus followers.
+    - Get information about the logged-in user, their posts, number of followers, and names of their followers.
 
-- 📄 Documentación
+- 📄 Documentation
 
-  - Documentación completa de los endpoints disponibles.
+  - Complete documentation of available endpoints.
 
-## 👨‍💻 Créditos
+## 👨‍💻 Credits
 
 - ✍️ Paula [@PaulaVegas](https://www.github.com/PaulaVegas)

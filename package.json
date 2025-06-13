@@ -1,0 +1,29 @@
+{
+  "name": "proyecto_redsocial",
+  "version": "1.0.0",
+  "description": "![banner](./assets/bannerProyecto2.png)\r ![Node.js](https://img.shields.io/badge/Node.js-339933?logo=nodedotjs&logoColor=white)\r ![Express](https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white)\r ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?logo=mongodb&logoColor=white)\r ![Mongoose](https://img.shields.io/badge/Mongoose-880000?logo=mongoose&logoColor=white)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaulaVegas/Proyecto_RedSocial.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/PaulaVegas/Proyecto_RedSocial/issues"
+  },
+  "homepage": "https://github.com/PaulaVegas/Proyecto_RedSocial#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.15.2"
+  }
+}

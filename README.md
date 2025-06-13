@@ -104,3 +104,7 @@ node index.js
 - 📄 Documentación
 
   - Documentación completa de los endpoints disponibles.
+
+## 👨‍💻 Créditos
+
+- ✍️ Paula [@PaulaVegas](https://www.github.com/PaulaVegas)

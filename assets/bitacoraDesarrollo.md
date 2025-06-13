@@ -9,7 +9,7 @@
 | Fecha      | Tarea                                     | Estado      |
 | ---------- | ----------------------------------------- | ----------- |
 | 13/06/2025 | Crear esqueleto del proyecto              | ✅ Hecho    |
-| /06/2025   | Crear controladores de Post               | ⏳ En curso |
+| 13/06/2025   | Crear CRUD de Post               | ✅ Hecho    |
 | /06/2025   | Crear controladores de Comments           | ⏳ En curso |
 | /06/2025   | Crear controladores de Users              | ⏳ En curso |
 | /06/2025   | Testeo completo de endpoints y relaciones | ⏳ En curso |
@@ -28,7 +28,7 @@ Probado con Postman:
 
 | Fecha    | Mensaje de commit                            | Rama           |
 | -------- | -------------------------------------------- | -------------- |
-| /06/2025 | `feat: `                                     | feature/       |
+| 13/06/2025 | `feat: Post CRUD`                                     | CRUD/posts    |
 | /06/2025 | `feat: `                                     | feature/       |
 | /06/2025 | `feat: `                                     | feature/       |
 | /06/2025 | `feat: `                                     | feature/       |

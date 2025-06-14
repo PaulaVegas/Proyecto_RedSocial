@@ -1,6 +1,15 @@
-const request = require("supertest");
 const mongoose = require("mongoose");
 const { MongoMemoryServer } = require("mongodb-memory-server");
+
+jest.mock("../middlewares/authentication", () => {
+	const mongoose = require("mongoose");
+	return (req, res, next) => {
+		req.user = { _id: new mongoose.Types.ObjectId() };
+		next();
+	};
+});
+
+const request = require("supertest");
 const app = require("../app");
 const Post = require("../models/Post");
 
@@ -24,21 +33,25 @@ beforeEach(async () => {
 
 describe("POST /posts/newPost", () => {
 	it("should create new post successfully", async () => {
-		const newPost = {
-			title: "Test Title",
-			content: "Test Content",
-		};
-
 		const res = await request(app)
 			.post("/posts/newPost")
-			.send(newPost)
+			.send({
+				title: "Test Title",
+				content: "Test Content",
+			})
 			.expect(201);
-
-		expect(res.body.title).toBe(newPost.title);
-		expect(res.body.content).toBe(newPost.content);
-
-		const postInDb = await Post.findOne({ title: newPost.title });
-		expect(postInDb).not.toBeNull();
+		expect(res.body).toHaveProperty("_id");
+		expect(res.body.title).toBe("Test Title");
+		expect(res.body.content).toBe("Test Content");
+	});
+	it("should return 400 if title or content is missing", async () => {
+		const res = await request(app)
+			.post("/posts/newPost")
+			.send({
+				title: "Test Title",
+			})
+			.expect(400);
+		expect(res.body.message).toBe("Title and content are required");
 	});
 });
 

@@ -1,9 +1,16 @@
 const Post = require("../models/Post");
+const User = require("../models/User");
 
 const PostController = {
 	async createPost(req, res) {
 		try {
-			const post = await Post.create(req.body);
+			const { title, content } = req.body;
+			if (!title || !content) {
+				return res
+					.status(400)
+					.json({ message: "Title and content are required" });
+			}
+			const post = await Post.create({ ...req.body, userId: req.user._id });
 			res.status(201).json(post);
 		} catch (error) {
 			console.error(error);

@@ -7,23 +7,18 @@
 ![Made with JavaScript](https://img.shields.io/badge/Made%20with-JavaScript-yellow?logo=javascript)
 ![Visual Studio Code](https://img.shields.io/badge/Editor-VSCode-blue?logo=visualstudiocode)
 
-## 📘 Introduction
+# 📘 Social Network API
 
-This project combines the knowledge acquired in node + express, along with MongoDB/mongoose.
-
----
+This backend project demonstrates a RESTful API built using **Node.js**, **Express**, and **MongoDB/Mongoose**, focused on simulating a simple social media application.
 
 ---
 
-## 🎯 Project Objectives
+## 🎯 Objectives
 
-REST API capable of:
-
-- User registration using Bcrypt.
-- User login + token + middleware.
-- Fully functional CRUD.
-- Like/unlike a post.
-- Backend deployed in production.
+- Register and authenticate users using **bcrypt** and **JWT**.
+- Implement a fully functional **CRUD** system.
+- Enable users to **like** and **unlike** posts and comments.
+- Deploy the backend to a production environment.
 
 ## 🛠️ Tech Stack
 
@@ -32,28 +27,89 @@ REST API capable of:
 [![Mongoose](https://img.shields.io/badge/Mongoose-880000?style=for-the-badge&logo=mongoose&logoColor=white)](https://mongoosejs.com/)
 
 [![Express](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)](https://expressjs.com/)
+**Node.js**
+**JWT** for token-based authentication
+**Multer** for image uploads
+**Nodemailer** for email confirmation
 
-## 📦 API Functionality
+## 📦 Features
 
-API RESTful capable of managing a social network. It includes the basic CRUD operations:
+### 🔐 Authentication
 
-- **GET**
-- **POST**
-- **PUT/PATCH**
-- **DELETE**
+- User registration with password hashing.
+- Login system that returns a JWT upon successful authentication.
+- Middleware to protect routes and verify token.
+- Email verification required before login.
+
+### 📝 CRUD Operations
+
+- Create, read, update and delete:
+  - **Users**
+  - **Posts**
+  - **Comments**
+
+### 💬 Comments
+
+- Full comments CRUD.
+- Ability to like and unlike comments.
+- Middleware to check ownership before edit/delete.
+
+### 📷 File Management
+
+- Upload images via **Multer** for:
+  - Posts
+  - Comments
+  - User profiles
+
+### 👥 Follower System
+
+- Follow/unfollow other users.
+- Retrieve a list of followers.
+- Access posts and followers of the logged-in user.
+
+### 🔍 Search & Relationships
+
+- Search users by name or ID.
+- Retrieve all posts with:
+  - Author's data
+  - Comments and each comment's author
+
 
 ## ✅ Requirements
 
 - **Node.js**.
-- **MongoDB Atlas** (or access to a MongoDB database).
-- Install dependencies:
-
+- **MongoDB Atlas** (or local MongoDB).
+- `keys.js` with your credentials:
 ```bash
-npm install
+module.exports = {
+	MONGO_URI:
+	"mongodb+srv://<name>:<password>@cluster0-tuqrv.mongodb.net/test?retryWrites=true&w=majority",
+	JWT_SECRET: process.env.JWT_SECRET || "default_secret_key",
+	};
 ```
 
-## 🚀 Running the project
 
+- `docker-compose.example.yml` with your data:
+```bash 
+ environment:
+     MONGO_INITDB_ROOT_USERNAME: nombreusuario
+     MONGO_INITDB_ROOT_PASSWORD: contraseñaDB
+     MONGO_INITDB_DATABASE: nombreDB
+```
+
+## 🚀 Getting started
+
+1. Clone the repository:
+```bash
+git clone https://github.com/PaulaVegas/Proyecto_RedSocial.git
+```
+
+2. Install dependencies:
+```bash
+npm install 
+```
+
+3. Run the project:
 ```bash
 npm start
 ```
@@ -100,9 +156,6 @@ npm start
 
     - Get information about the logged-in user, their posts, number of followers, and names of their followers.
 
-- 📄 Documentation
-
-  - Complete documentation of available endpoints.
 
 ## 👨‍💻 Credits
 

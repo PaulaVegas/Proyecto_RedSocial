@@ -22,15 +22,13 @@ This backend project demonstrates a RESTful API built using **Node.js**, **Expre
 
 ## 🛠️ Tech Stack
 
-[![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+- [![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/) + [![Mongoose](https://img.shields.io/badge/Mongoose-880000?style=for-the-badge&logo=mongoose&logoColor=white)](https://mongoosejs.com/)
 
-[![Mongoose](https://img.shields.io/badge/Mongoose-880000?style=for-the-badge&logo=mongoose&logoColor=white)](https://mongoosejs.com/)
-
-[![Express](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)](https://expressjs.com/)
-**Node.js**
-**JWT** for token-based authentication
-**Multer** for image uploads
-**Nodemailer** for email confirmation
+- [![Express](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)](https://expressjs.com/)
+- **Node.js**
+- **JWT** for token-based authentication
+- **Multer** for image uploads
+- **Nodemailer** for email confirmation
 
 ## 📦 Features
 
@@ -79,7 +77,7 @@ This backend project demonstrates a RESTful API built using **Node.js**, **Expre
 
 - **Node.js**.
 - **MongoDB Atlas** (or local MongoDB).
-- `keys.js` with your credentials:
+- Example `keys.js`:
 ```bash
 module.exports = {
 	MONGO_URI:
@@ -87,9 +85,7 @@ module.exports = {
 	JWT_SECRET: process.env.JWT_SECRET || "default_secret_key",
 	};
 ```
-
-
-- `docker-compose.example.yml` with your data:
+- Example `docker-compose.example.yml`:
 ```bash 
  environment:
      MONGO_INITDB_ROOT_USERNAME: nombreusuario
@@ -113,49 +109,6 @@ npm install
 ```bash
 npm start
 ```
-
-### 🎁 Bonus
-
-- 🔐 Authentication and Security
-
-  - Middleware to verify comment ownership before editing or deleting.
-
-  - Login validation only after confirming email.
-
-  - Sending confirmation email upon registration.
-
-- 📦 File Management
-
-  - Image uploads with multer when creating or updating:
-
-    - Posts
-
-    - Comments
-
-    - Users
-
-- 👥 Follower system
-
-  - Follow and unfollow other users.
-
-  - Endpoint to get the followers and posts of the logged-in user, including followers’ names.
-
-- 💬 Comments
-
-  - Full `comments` CRUD.
-
-- Like and unlike comments.
-
-- 🔍  Searches and Relationships
-
-  - Search users by name or ID.
-
-  - Endpoint to:
-
-    - Get all posts with their author and comments (including each comment’s author data).
-
-    - Get information about the logged-in user, their posts, number of followers, and names of their followers.
-
 
 ## 👨‍💻 Credits
 

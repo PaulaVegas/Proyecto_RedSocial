@@ -1,32 +1,34 @@
-# 📒 Bitácora de Desarrollo – Módulo de Categorías, Usuarios y Seeders
+# 📒 Dev bitacora
 
 ### 👩‍🦰💻 Paula
 
-### 🗓️ Proyecto: E-commerce (API REST con Node, Express, Sequelize y MySQL)
+### 🗓️ Project: API Social Network
 
-## ✅ Tareas planificadas
+## ✅ To Do
 
-| Fecha      | Tarea                                     | Estado      |
+| Date      | Task                                    | Status    |
 | ---------- | ----------------------------------------- | ----------- |
-| 13/06/2025 | Crear esqueleto del proyecto              | ✅ Hecho    |
-| 13/06/2025   | Crear CRUD de Post               | ✅ Hecho    |
-| /06/2025   | Crear controladores de Comments           | ⏳ En curso |
-| /06/2025   | Crear controladores de Users              | ⏳ En curso |
-| /06/2025   | Testeo completo de endpoints y relaciones | ⏳ En curso |
+| 13/06/2025 | Create project skeleton           | ✅ Complete  |
+| 13/06/2025   | Posts CRUD               | ✅ Complete    |
+| /06/2025   | Comments CRUD          | ⏳ In Progress |
+| /06/2025   | Users CRUD            | ⏳ In Progress  |
+| /06/2025   | Complete testing | ⏳ In Progress  |
 
 ---
 
-## 🧪 Testeo de endpoints
+## 🧪 Testing
 
-Probado con Postman:
+### Testing with jest:
+Started testing with jest, had to create app.js and separate code from index.js so as to separate the logic from the express server (the .listen) and to be able to reuse my app in testing without initializing the real server.
+Installed the `mongodb-memory-server` library to have a temporary MongoDB database. 
 
-# 🧩 Problemas encontrados
+# 🧩 Problems
 
-## 📌 Mejoras pendientes o sugerencias
+## 📌 Pending
 
-## 📍 Commits importantes
+## 📍 Important commits
 
-| Fecha    | Mensaje de commit                            | Rama           |
+| Date    | Commit Message                           | Branch         |
 | -------- | -------------------------------------------- | -------------- |
 | 13/06/2025 | `feat: Post CRUD`                                     | CRUD/posts    |
 | /06/2025 | `feat: `                                     | feature/       |

@@ -42,6 +42,7 @@ DELETE /users/logout › should return 401 without token
 
       at Object.toBe (tests/user.test.js:165:26)
 ```
+**Fixed**, I had used `status 400` in the controller and `status 401` in the testing. Changed the controller one to `401`
 
 ## 📌 Pending
 
@@ -50,7 +51,7 @@ DELETE /users/logout › should return 401 without token
 | Date    | Commit Message                           | Branch         |
 | -------- | -------------------------------------------- | -------------- |
 | 13/06/2025 | `feat: Post CRUD`                                     | CRUD/posts    |
-| /06/2025 | `feat: User CRUD with auth`                                     | CRUD/Users      |
+| 14/06/2025 | `feat: User CRUD with auth`                                     | CRUD/Users      |
 | /06/2025 | `feat: `                                     | feature/       |
 | /06/2025 | `feat: `                                     | feature/       |
 | /06/2025 | `feature: upload product images with multer` | feature/multer |

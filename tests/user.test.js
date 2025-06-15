@@ -105,6 +105,8 @@ describe("GET /users/:_id", () => {
 		});
 		const res = await request(app).get(`/users/${user._id}`);
 		expect(res.statusCode).toBe(200);
+		expect(res.body).not.toHaveProperty("password");
+		expect(res.body._id).toBe(user._id.toString());
 	});
 
 	it("should return 404 if user not found", async () => {
@@ -126,6 +128,15 @@ describe("PUT /users/:_id", () => {
 
 		expect(res.statusCode).toBe(200);
 		expect(res.body.user.email).toBe("updated@example.com");
+	});
+	it("should return 404 if user does not exist", async () => {
+		const fakeId = new mongoose.Types.ObjectId();
+		const res = await request(app)
+			.put(`/users/${fakeId}`)
+			.send({ email: "doesnotexist@example.com" });
+
+		expect(res.statusCode).toBe(404);
+		expect(res.body.message).toBe("User not found");
 	});
 });
 

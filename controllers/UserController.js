@@ -2,7 +2,6 @@ const User = require("../models/User");
 const Token = require("../models/Token");
 const Post = require("../models/Post");
 const bcrypt = require("bcryptjs");
-const secret = process.env.JWT_SECRET;
 const { JWT_SECRET } = require("../config/config");
 const jwt = require("jsonwebtoken");
 
@@ -120,7 +119,7 @@ const UserController = {
 		try {
 			console.log("Logging out user:", req.user._id);
 			if (!req.user || !req.headers.authorization) {
-				return res.status(400).json({ message: "No user or token found" });
+				return res.status(401).json({ message: "No user or token found" });
 			}
 			await Token.findOneAndDelete({
 				userId: req.user._id,

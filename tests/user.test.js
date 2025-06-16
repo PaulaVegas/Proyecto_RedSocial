@@ -1,6 +1,8 @@
 process.env.JWT_SECRET = "test_secret_key";
+
 const mongoose = require("mongoose");
 const { MongoMemoryServer } = require("mongodb-memory-server");
+const jwt = require("jsonwebtoken");
 
 jest.mock("../middlewares/authentication", () => {
 	const mongoose = require("mongoose");
@@ -15,6 +17,12 @@ const app = require("../app");
 const User = require("../models/User");
 const Token = require("../models/Token");
 
+const mockUser = {
+	_id: "684fdd11669416c863b5af59",
+	username: "mockuser",
+	email: "mockuser@example.com",
+	// ...otros campos que necesites
+};
 let mongoServer;
 beforeAll(async () => {
 	mongoServer = await MongoMemoryServer.create();
@@ -24,12 +32,13 @@ beforeAll(async () => {
 
 afterAll(async () => {
 	await mongoose.connection.dropDatabase();
-	await mongoose.connection.close();
+	await mongoose.connection.close(true);
 	await mongoServer.stop();
 });
 
 beforeEach(async () => {
 	await User.deleteMany();
+	await Token.deleteMany();
 });
 
 describe("POST /users/register", () => {

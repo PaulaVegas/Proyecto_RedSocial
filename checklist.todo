@@ -1,0 +1,43 @@
+POSTS:
+✔ Create a new post (has to be authenticated) @done (6/16/2025, 10:36:24 AM)
+✔ Update a post (has to be authenticated) @done (6/16/2025, 10:36:33 AM)
+✔ Delete a post (has to be authenticated) @done (6/16/2025, 10:36:37 AM)
+☐ Get all posts along with the creator and the comments
+✔ Search post by name @done (6/16/2025, 10:36:51 AM)
+✔ Search post by id @done (6/16/2025, 10:36:53 AM)
+✔ Validate all fields in the post (except the img). If not valid, return a message @done (6/16/2025, 10:37:16 AM)
+✔ 10 posts per page @done (6/16/2025, 8:10:59 PM)
+☐ Likes (Like and unlike a post)
+✔ Middleware to check if the user is authenticated for creating, updating, and deleting posts @done (6/16/2025, 10:37:26 AM)
+    Extras:
+        ☐ Multer to upload imgs 
+        ☐ Endpoint that returns posts should also return the users that made the comments in the posts
+
+USERS:
+✔ Register a new user @done (6/16/2025, 10:37:48 AM)
+✔ Login a user (with bcrypt and JWT) @done (6/16/2025, 10:37:50 AM)
+✔ Get connected user info @done (6/16/2025, 7:39:20 PM)
+✔ Logout a user @done (6/16/2025, 10:37:52 AM)
+✔ Implement validation. If not valid, return a message @done (6/16/2025, 10:37:56 AM)
+    Extras:
+        ☐ Multer to upload profile imgs
+        ☐ Followers (Follow and unfollow a user)
+        ☐ The connected user info endpoint should also return their posts and number of followers
+        ☐ Email validation (send a verification email after registration)
+        ☐ Login validation (if unverified email, can't login)
+        ☐ Endpoint should also return the name of the followers
+        ☐ Search user by name
+        ✔ Search user by id @done (6/16/2025, 10:38:19 AM)
+
+COMMENTS:
+✔ Create a new comment in a post @done (6/16/2025, 11:44:34 AM)
+✔ Update a comment in a post @done (6/16/2025, 11:44:36 AM)
+✔ Delete a comment in a post @done (6/16/2025, 11:44:37 AM)
+✔ Get all comments in a post @done (6/16/2025, 11:44:39 AM)
+☐ Validate all fields in the comment. If not valid, return a message
+    Extras:
+        ☐ Middleware to check the authorship for updating and deleting comments
+        ☐ Multer to upload imgs
+        ☐ Likes (Like and unlike a comment)
+
+☐ Create documentation for the API

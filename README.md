@@ -7,13 +7,13 @@
 ![Made with JavaScript](https://img.shields.io/badge/Made%20with-JavaScript-yellow?logo=javascript)
 ![Visual Studio Code](https://img.shields.io/badge/Editor-VSCode-blue?logo=visualstudiocode)
 
-# 📘 Social Network API
+# Social Network API
 
 This backend project demonstrates a RESTful API built using **Node.js**, **Express**, and **MongoDB/Mongoose**, focused on simulating a simple social media application.
 
 ---
 
-## 🎯 Objectives
+## Objectives
 
 - Register and authenticate users using **bcrypt** and **JWT**.
 - Implement a fully functional **CRUD** system.
@@ -30,54 +30,54 @@ This backend project demonstrates a RESTful API built using **Node.js**, **Expre
 - **Multer** for image uploads
 - **Nodemailer** for email confirmation
 
-## 📦 Features
+## Features
 
-### 🔐 Authentication
+### Authentication
 
 - User registration with password hashing.
 - Login system that returns a JWT upon successful authentication.
 - Middleware to protect routes and verify token.
 - Email verification required before login.
 
-### 📝 CRUD Operations
+### CRUD Operations
 
 - Create, read, update and delete:
   - **Users**
   - **Posts**
   - **Comments**
 
-### 💬 Comments
+### Comments
 
 - Full comments CRUD.
 - Ability to like and unlike comments.
 - Middleware to check ownership before edit/delete.
 
-### 📷 File Management
+### File Management
 
 - Upload images via **Multer** for:
   - Posts
   - Comments
   - User profiles
 
-### 👥 Follower System
+### Follower System
 
 - Follow/unfollow other users.
 - Retrieve a list of followers.
 - Access posts and followers of the logged-in user.
 
-### 🔍 Search & Relationships
+### Search & Relationships
 
 - Search users by name or ID.
 - Retrieve all posts with:
   - Author's data
   - Comments and each comment's author
 
-
-## ✅ Requirements
+## Requirements
 
 - **Node.js**.
 - **MongoDB Atlas** (or local MongoDB).
 - Example `keys.js`:
+
 ```bash
 module.exports = {
 	MONGO_URI:
@@ -85,8 +85,10 @@ module.exports = {
 	JWT_SECRET: process.env.JWT_SECRET || "default_secret_key",
 	};
 ```
+
 - Example `docker-compose.example.yml`:
-```bash 
+
+```bash
  environment:
      MONGO_INITDB_ROOT_USERNAME: nombreusuario
      MONGO_INITDB_ROOT_PASSWORD: contraseñaDB
@@ -96,20 +98,23 @@ module.exports = {
 ## 🚀 Getting started
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/PaulaVegas/Proyecto_RedSocial.git
 ```
 
 2. Install dependencies:
+
 ```bash
-npm install 
+npm install
 ```
 
 3. Run the project:
+
 ```bash
 npm start
 ```
 
-## 👨‍💻 Credits
+## Credits
 
-- ✍️ Paula [@PaulaVegas](https://www.github.com/PaulaVegas)
+- Paula [@PaulaVegas](https://www.github.com/PaulaVegas)

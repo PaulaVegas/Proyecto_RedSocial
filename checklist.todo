@@ -16,7 +16,7 @@ POSTS:
 USERS:
 ✔ Register a new user @done (6/16/2025, 10:37:48 AM)
 ✔ Login a user (with bcrypt and JWT) @done (6/16/2025, 10:37:50 AM)
-☐ Get connected user info 
+✔ Get connected user info @done (6/16/2025, 7:39:20 PM)
 ✔ Logout a user @done (6/16/2025, 10:37:52 AM)
 ✔ Implement validation. If not valid, return a message @done (6/16/2025, 10:37:56 AM)
     Extras:

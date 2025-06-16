@@ -11,7 +11,7 @@
 | 13/06/2025 | Create project skeleton           | ✅ Complete  |
 | 13/06/2025   | Posts CRUD               | ✅ Complete    |
 | 14/06/2025   | Users CRUD          | ⏳ Semi Complete |
-| /06/2025   | Comments CRUD            | ⏳ In Progress  |
+| 16/06/2025   | Comments CRUD            | ✅ Complete  |
 | /06/2025   | Complete testing | ⏳ In Progress  |
 
 ---
@@ -52,6 +52,6 @@ DELETE /users/logout › should return 401 without token
 | -------- | -------------------------------------------- | -------------- |
 | 13/06/2025 | `feat: Post CRUD`                                     | CRUD/posts    |
 | 14/06/2025 | `feat: User CRUD with auth`                                     | CRUD/Users      |
-| /06/2025 | `feat: `                                     | feature/       |
+| /06/2025 | `feat: comments CRUD`                                     | develop     |
 | /06/2025 | `feat: `                                     | feature/       |
 | /06/2025 | `feature: upload product images with multer` | feature/multer |

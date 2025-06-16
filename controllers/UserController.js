@@ -80,6 +80,21 @@ const UserController = {
 			res.status(500).send({ message: "Error fetching user" });
 		}
 	},
+	async getMe(req, res) {
+		try {
+			const user = req.user;
+			if (!user) {
+				return res.status(404).json({ message: "User not found" });
+			}
+			const { _id, username, email } = userToSend;
+			res.status(200).json({ _id, username, email });
+		} catch (error) {
+			console.error(error);
+			res
+				.status(500)
+				.json({ message: "Error fetching user data", error: error.message });
+		}
+	},
 	async update(req, res) {
 		try {
 			const { password, ...rest } = req.body;
@@ -121,9 +136,10 @@ const UserController = {
 			if (!req.user || !req.headers.authorization) {
 				return res.status(401).json({ message: "No user or token found" });
 			}
+			const token = req.headers.authorization.split(" ")[1];
 			await Token.findOneAndDelete({
 				userId: req.user._id,
-				token: req.headers.authorization,
+				token: token,
 			});
 			return res.status(200).json({ message: "Logout successful" });
 		} catch (error) {

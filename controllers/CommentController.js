@@ -69,6 +69,50 @@ const CommentController = {
       next(error);
     }
   },
+  async likeComment(req, res, next) {
+    try {
+      const comment = await Comment.findById(req.params._id);
+      if (!comment) {
+        return res.status(404).json({ message: "Comment not found" });
+      }
+      if (comment.likes.includes(req.user._id)) {
+        return res.status(400).json({ message: "Comment already liked" });
+      }
+      comment.likes.push(req.user._id);
+      await comment.save();
+      res.status(200).json({
+        message: "Comment liked successfully",
+        likesCount: comment.likes.length,
+        comment,
+      });
+    } catch (error) {
+      error.origin = "comment";
+      next(error);
+    }
+  },
+  async unlikeComment(req, res, next) {
+    try {
+      const comment = await Comment.findById(req.params._id);
+      if (!comment) {
+        return res.status(404).json({ message: "Comment not found" });
+      }
+      if (!comment.likes.includes(req.user._id)) {
+        return res.status(400).json({ message: "Comment not liked yet" });
+      }
+      comment.likes = comment.likes.filter(
+        (like) => like.toString() !== req.user._id.toString()
+      );
+      await comment.save();
+      res.status(200).json({
+        message: "Comment unliked successfully",
+        likesCount: comment.likes.length,
+        comment,
+      });
+    } catch (error) {
+      error.origin = "comment";
+      next(error);
+    }
+  },
 };
 
 module.exports = CommentController;

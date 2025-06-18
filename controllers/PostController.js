@@ -104,7 +104,41 @@ const PostController = {
         { $addToSet: { likedPosts: post._id } },
         { new: true }
       );
-      res.status(200).json({ message: "Post liked successfully", post });
+      res.status(200).json({
+        message: "Post liked successfully",
+        likesCount: post.likes.length,
+        post,
+      });
+    } catch (error) {
+      error.origin = "post";
+      next(error);
+    }
+  },
+  async unlikePost(req, res, next) {
+    try {
+      const post = await Post.findById(req.params._id);
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+      if (!post.likes.includes(req.user._id)) {
+        return res.status(400).json({ message: "Post not liked yet" });
+      }
+      post.likes = post.likes.filter(
+        (like) => like.toString() !== req.user._id
+      );
+      await post.save();
+      await User.findByIdAndUpdate(
+        req.user._id,
+        { $pull: { likedPosts: post._id } },
+        { new: true }
+      );
+      res
+        .status(200)
+        .json({
+          message: "Post unliked successfully",
+          likesCount: post.likes.length,
+          post,
+        });
     } catch (error) {
       error.origin = "post";
       next(error);

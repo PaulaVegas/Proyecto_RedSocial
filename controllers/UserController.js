@@ -138,7 +138,6 @@ const UserController = {
       if (!user) {
         return res.status(404).send({ message: "User not found" });
       }
-      // Also delete all posts by this user
       await Post.deleteMany({ userId: req.params._id });
       res.status(200).send({ message: "User deleted successfully" });
     } catch (error) {
@@ -158,6 +157,78 @@ const UserController = {
         token: token,
       });
       return res.status(200).json({ message: "Logout successful" });
+    } catch (error) {
+      error.origin = "user";
+      next(error);
+    }
+  },
+  async followUser(req, res, next) {
+    try {
+      const userToFollow = await User.findById(req.params._id);
+      if (!userToFollow) {
+        return res.status(404).send({ message: "User not found" });
+      }
+      if (userToFollow.followers.includes(req.user._id)) {
+        return res.status(400).send({ message: "Already following this user" });
+      }
+      userToFollow.followers.push(req.user._id);
+      await userToFollow.save();
+      req.user.following.push(userToFollow._id);
+      await req.user.save();
+      res.status(200).send({
+        message: `You are now following ${userToFollow.username}`,
+        user: userToFollow,
+      });
+    } catch (error) {
+      error.origin = "user";
+      next(error);
+    }
+  },
+  async unfollowUser(req, res, next) {
+    try {
+      const userToUnfollow = await User.findById(req.params._id);
+      if (!userToUnfollow) {
+        return res.status(404).send({ message: "User not found" });
+      }
+      if (!userToUnfollow.followers.includes(req.user._id)) {
+        return res.status(400).send({ message: "Not following this user" });
+      }
+      userToUnfollow.followers.pull(req.user._id);
+      await userToUnfollow.save();
+      req.user.following.pull(userToUnfollow._id);
+      await req.user.save();
+      res.status(200).send({
+        message: `You have unfollowed ${userToUnfollow.username}`,
+        user: userToUnfollow,
+      });
+    } catch (error) {
+      error.origin = "user";
+      next(error);
+    }
+  },
+  async getFollowers(req, res, next) {
+    try {
+      const user = await User.findById(req.params._id)
+        .populate("followers", "username email")
+        .select("-password");
+      if (!user) {
+        return res.status(404).send({ message: "User not found" });
+      }
+      res.status(200).send(user.followers);
+    } catch (error) {
+      error.origin = "user";
+      next(error);
+    }
+  },
+  async getFollowing(req, res, next) {
+    try {
+      const user = await User.findById(req.params._id)
+        .populate("following", "username email")
+        .select("-password");
+      if (!user) {
+        return res.status(404).send({ message: "User not found" });
+      }
+      res.status(200).send(user.following);
     } catch (error) {
       error.origin = "user";
       next(error);

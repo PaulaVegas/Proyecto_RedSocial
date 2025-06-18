@@ -17,7 +17,13 @@ const typeError = (err, req, res, next) => {
   } else if (err.code === 11000) {
     res.status(400).send("Email already exists, please use another one");
   } else {
-    res.status(500).send(`There was a problem`);
+    console.error("Unhandled error:", err); // para verlo en consola del servidor
+    res.status(500).send({
+      message: "There was a problem",
+      error: err.message,
+      origin: err.origin || "unknown",
+      stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
+    });
   }
 };
 module.exports = { typeError };

@@ -24,7 +24,7 @@ USERS:
         ☐ Followers (Follow and unfollow a user)
         ☐ The connected user info endpoint should also return their posts and number of followers
         ☐ Email validation (send a verification email after registration)
-        ☐ Login validation (if unverified email, can't login)
+        ✔ Login validation (if unverified email, can't login) @done (6/18/2025, 7:41:40 PM)
         ☐ Endpoint should also return the name of the followers
         ☐ Search user by name
         ✔ Search user by id @done (6/16/2025, 10:38:19 AM)

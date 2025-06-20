@@ -2,7 +2,7 @@ const Post = require("../models/Post");
 const User = require("../models/User");
 
 const PostController = {
-  async createPost(req, res) {
+  async createPost(req, res, next) {
     try {
       const { title, content } = req.body;
       if (!title || !content) {
@@ -16,11 +16,11 @@ const PostController = {
       });
       res.status(201).send(post);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error creating post" });
+      error.origin = "post";
+      next(error);
     }
   },
-  async getAll(req, res) {
+  async getAll(req, res, next) {
     try {
       const { page = 1, limit = 10 } = req.query;
       const posts = await Post.find()
@@ -28,11 +28,11 @@ const PostController = {
         .skip((page - 1) * limit);
       res.status(200).send(posts);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error fetching posts" });
+      error.origin = "post";
+      next(error);
     }
   },
-  async getById(req, res) {
+  async getById(req, res, next) {
     try {
       const post = await Post.findById(req.params._id);
       if (!post) {
@@ -40,11 +40,11 @@ const PostController = {
       }
       res.status(200).send(post);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error fetching post" });
+      error.origin = "post";
+      next(error);
     }
   },
-  async getByTitle(req, res) {
+  async getByTitle(req, res, next) {
     try {
       const searchedTitle = req.params.title;
       if (searchedTitle.length > 20) {
@@ -57,11 +57,11 @@ const PostController = {
       });
       res.status(200).json(posts);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error fetching posts by title" });
+      error.origin = "post";
+      next(error);
     }
   },
-  async delete(req, res) {
+  async delete(req, res, next) {
     try {
       const post = await Post.findByIdAndDelete(req.params._id);
       if (!post) {
@@ -69,11 +69,11 @@ const PostController = {
       }
       res.status(200).json({ message: "Post deleted successfully" });
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error deleting post" });
+      error.origin = "post";
+      next(error);
     }
   },
-  async update(req, res) {
+  async update(req, res, next) {
     try {
       const post = await Post.findByIdAndUpdate(req.params._id, req.body, {
         new: true,
@@ -84,8 +84,64 @@ const PostController = {
       }
       res.status(200).json(post);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error updating post" });
+      error.origin = "post";
+      next(error);
+    }
+  },
+  async likePost(req, res, next) {
+    try {
+      const post = await Post.findById(req.params._id);
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+      if (post.likes.includes(req.user._id)) {
+        return res.status(400).json({ message: "Post already liked" });
+      }
+      post.likes.push(req.user._id);
+      await post.save();
+      await User.findByIdAndUpdate(
+        req.user._id,
+        { $addToSet: { likedPosts: post._id } },
+        { new: true }
+      );
+      res.status(200).json({
+        message: "Post liked successfully",
+        likesCount: post.likes.length,
+        post,
+      });
+    } catch (error) {
+      error.origin = "post";
+      next(error);
+    }
+  },
+  async unlikePost(req, res, next) {
+    try {
+      const post = await Post.findById(req.params._id);
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+      if (!post.likes.includes(req.user._id)) {
+        return res.status(400).json({ message: "Post not liked yet" });
+      }
+      post.likes = post.likes.filter(
+        (like) => like.toString() !== req.user._id
+      );
+      await post.save();
+      await User.findByIdAndUpdate(
+        req.user._id,
+        { $pull: { likedPosts: post._id } },
+        { new: true }
+      );
+      res
+        .status(200)
+        .json({
+          message: "Post unliked successfully",
+          likesCount: post.likes.length,
+          post,
+        });
+    } catch (error) {
+      error.origin = "post";
+      next(error);
     }
   },
 };

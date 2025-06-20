@@ -6,36 +6,38 @@ const { JWT_SECRET } = require("../config/config");
 const jwt = require("jsonwebtoken");
 
 const UserController = {
-  async create(req, res) {
-    const { password, ...rest } = req.body;
-    if (!req.body.email || !req.body.password) {
-      return res
-        .status(400)
-        .send({ message: "Email and password are required" });
+  async register(req, res, next) {
+    try {
+      const { password, email, ...rest } = req.body;
+      if (!email || !password) {
+        return res
+          .status(400)
+          .send({ message: "Email and password are required" });
+      }
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return res
+          .status(400)
+          .send({ message: "Email already exists, please use another one" });
+      }
+      const hashedPassword = bcrypt.hashSync(password, 10);
+      const newUserData = {
+        ...rest,
+        email,
+        role: "user",
+        password: hashedPassword,
+      };
+      const user = await User.create(newUserData);
+      res.status(201).send({
+        message: "User registered successfully",
+        username: user.username,
+      });
+    } catch (error) {
+      error.origin = "user";
+      next(error);
     }
-    const existingUser = await User.findOne({ email: req.body.email });
-    if (existingUser) {
-      return res
-        .status(400)
-        .send({ message: "Email already exists, please use another one" });
-    }
-    const hashedPassword = bcrypt.hashSync(password, 10);
-    const newUserData = { ...rest, role: "user", password: hashedPassword };
-
-    User.create(newUserData)
-      .then((user) =>
-        res.status(201).send({
-          message: "User created successfully",
-          username: user.username,
-        })
-      )
-      .catch(
-        (err) =>
-          console.error(err) &&
-          res.status(500).send({ message: "Error creating user" })
-      );
   },
-  async login(req, res) {
+  async login(req, res, next) {
     try {
       const user = await User.findOne({ email: req.body.email });
       if (!user) {
@@ -55,14 +57,14 @@ const UserController = {
       if (user.tokens.length > 3) user.tokens.shift();
       user.tokens.push(token);
       await user.save();
-      res.status(200).send({ message: "Bienvenid@ " + user.username, token });
+      res.status(200).send({ message: "Welcome, " + user.username, token });
     } catch (error) {
-      console.error(error);
-      res.status(500).send({ message: "Error logging in" });
+      error.origin = "user";
+      next(error);
     }
   },
 
-  async getAll(req, res) {
+  async getAll(req, res, next) {
     try {
       const users = await User.find({}, "-password").populate({
         path: "posts",
@@ -70,11 +72,11 @@ const UserController = {
       });
       res.status(200).send(users);
     } catch (error) {
-      console.error(error);
-      res.status(500).send({ message: "Error fetching users" });
+      error.origin = "user";
+      next(error);
     }
   },
-  async getById(req, res) {
+  async getById(req, res, next) {
     try {
       const user = await User.findById(req.params._id)
         .select("-password")
@@ -88,22 +90,28 @@ const UserController = {
       }
       res.status(200).send(user);
     } catch (error) {
-      console.error(error);
-      res.status(500).send({ message: "Error fetching user" });
+      error.origin = "user";
+      next(error);
     }
   },
-  async getInfo(req, res) {
+  async getInfo(req, res, next) {
     try {
       const user = await User.findById(req.user._id)
         .select("-password")
-        .populate("posts");
+        .populate({
+          path: "posts",
+          populate: {
+            path: "comments",
+          },
+        })
+        .populate("likedPosts");
       res.status(200).send(user);
     } catch (error) {
-      console.error(error);
-      res.status(500).send({ message: "Error fetching user info" });
+      error.origin = "user";
+      next(error);
     }
   },
-  async update(req, res) {
+  async update(req, res, next) {
     try {
       const { password, ...rest } = req.body;
       const hashedPassword = password
@@ -118,28 +126,26 @@ const UserController = {
       if (!user) {
         return res.status(404).send({ message: "User not found" });
       }
-
       res.status(200).send({ message: "User updated successfully", user });
     } catch (error) {
-      console.error(error);
-      res.status(500).send({ message: "Error updating user" });
+      error.origin = "user";
+      next(error);
     }
   },
-  async delete(req, res) {
+  async delete(req, res, next) {
     try {
       const user = await User.findByIdAndDelete(req.params._id);
       if (!user) {
         return res.status(404).send({ message: "User not found" });
       }
-      // Also delete all posts by this user
       await Post.deleteMany({ userId: req.params._id });
       res.status(200).send({ message: "User deleted successfully" });
     } catch (error) {
-      console.error(error);
-      res.status(500).send({ message: "Error deleting user" });
+      error.origin = "user";
+      next(error);
     }
   },
-  async logout(req, res) {
+  async logout(req, res, next) {
     try {
       console.log("Logging out user:", req.user._id);
       if (!req.user || !req.headers.authorization) {
@@ -152,8 +158,80 @@ const UserController = {
       });
       return res.status(200).json({ message: "Logout successful" });
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Error logging out" });
+      error.origin = "user";
+      next(error);
+    }
+  },
+  async followUser(req, res, next) {
+    try {
+      const userToFollow = await User.findById(req.params._id);
+      if (!userToFollow) {
+        return res.status(404).send({ message: "User not found" });
+      }
+      if (userToFollow.followers.includes(req.user._id)) {
+        return res.status(400).send({ message: "Already following this user" });
+      }
+      userToFollow.followers.push(req.user._id);
+      await userToFollow.save();
+      req.user.following.push(userToFollow._id);
+      await req.user.save();
+      res.status(200).send({
+        message: `You are now following ${userToFollow.username}`,
+        user: userToFollow,
+      });
+    } catch (error) {
+      error.origin = "user";
+      next(error);
+    }
+  },
+  async unfollowUser(req, res, next) {
+    try {
+      const userToUnfollow = await User.findById(req.params._id);
+      if (!userToUnfollow) {
+        return res.status(404).send({ message: "User not found" });
+      }
+      if (!userToUnfollow.followers.includes(req.user._id)) {
+        return res.status(400).send({ message: "Not following this user" });
+      }
+      userToUnfollow.followers.pull(req.user._id);
+      await userToUnfollow.save();
+      req.user.following.pull(userToUnfollow._id);
+      await req.user.save();
+      res.status(200).send({
+        message: `You have unfollowed ${userToUnfollow.username}`,
+        user: userToUnfollow,
+      });
+    } catch (error) {
+      error.origin = "user";
+      next(error);
+    }
+  },
+  async getFollowers(req, res, next) {
+    try {
+      const user = await User.findById(req.params._id)
+        .populate("followers", "username email")
+        .select("-password");
+      if (!user) {
+        return res.status(404).send({ message: "User not found" });
+      }
+      res.status(200).send(user.followers);
+    } catch (error) {
+      error.origin = "user";
+      next(error);
+    }
+  },
+  async getFollowing(req, res, next) {
+    try {
+      const user = await User.findById(req.params._id)
+        .populate("following", "username email")
+        .select("-password");
+      if (!user) {
+        return res.status(404).send({ message: "User not found" });
+      }
+      res.status(200).send(user.following);
+    } catch (error) {
+      error.origin = "user";
+      next(error);
     }
   },
 };

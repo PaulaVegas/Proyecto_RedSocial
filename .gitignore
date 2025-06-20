@@ -1,4 +1,4 @@
 /node_modules
-/config/keys.js
 /config/config.js
-/docker-compose.yml
+docker-compose.yml
+.env

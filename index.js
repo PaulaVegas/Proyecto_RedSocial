@@ -11,6 +11,7 @@ app.use("/posts", require("./routes/posts"));
 app.use("/users", require("./routes/users"));
 app.use("/comments", require("./routes/comments"));
 app.use(typeError);
+console.log("MONGO_URI al iniciar:", process.env.MONGO_URI);
 
 dbConnection();
 

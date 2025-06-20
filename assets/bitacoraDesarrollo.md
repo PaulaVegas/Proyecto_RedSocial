@@ -22,6 +22,7 @@
 
 Started testing with jest, had to create app.js and separate code from index.js so as to separate the logic from the express server (the .listen) and to be able to reuse my app in testing without initializing the real server.
 Installed the `mongodb-memory-server` library to have a temporary MongoDB database.
+Changed to .env and broke the testing with jest. Revisit !!!
 
 # 🧩 Problems
 
@@ -29,24 +30,11 @@ Problem with the logout jest testing
 
 ```bash
 DELETE /users/logout › should return 401 without token
-
-    expect(received).toBe(expected) // Object.is equality
-
-    Expected: 401
-    Received: 400
-
-      163 |     it("should return 401 without token", async () => {
-      164 |             const res = await request(app).delete("/users/logout");
-    > 165 |             expect(res.statusCode).toBe(401);
-          |                                    ^
-      166 |     });
-      167 | });
-      168 |
-
-      at Object.toBe (tests/user.test.js:165:26)
 ```
 
 **Fixed**, I had used `status 400` in the controller and `status 401` in the testing. Changed the controller one to `401`
+
+Testing broke when implementing .env
 
 ## 📍 Important commits
 

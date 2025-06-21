@@ -1,5 +1,6 @@
 const Post = require("../models/Post");
 const User = require("../models/User");
+const Comment = require("../models/Comment");
 
 const PostController = {
   async createPost(req, res, next) {
@@ -22,11 +23,31 @@ const PostController = {
   },
   async getAll(req, res, next) {
     try {
-      const { page = 1, limit = 10 } = req.query;
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 10;
       const posts = await Post.find()
         .limit(limit)
         .skip((page - 1) * limit);
-      res.status(200).send(posts);
+      const postsWithComments = await Promise.all(
+        posts.map(async (post) => {
+          const comments = await Comment.find({ postId: post._id }).populate(
+            "userId",
+            "username"
+          );
+          const commentsWithLikesCount = comments.map((comment) => ({
+            ...comment.toObject(),
+            likesCount: comment.likes.length,
+          }));
+          return {
+            ...post.toObject(),
+            likesCount: post.likes.length,
+            comments: commentsWithLikesCount,
+          };
+        })
+      );
+      res
+        .status(200)
+        .json({ messsage: "Post with comments: ", postsWithComments });
     } catch (error) {
       error.origin = "post";
       next(error);
@@ -94,7 +115,7 @@ const PostController = {
       if (!post) {
         return res.status(404).json({ message: "Post not found" });
       }
-      if (post.likes.includes(req.user._id)) {
+      if (post.likes.some((likeId) => likeId.equals(req.user._id))) {
         return res.status(400).json({ message: "Post already liked" });
       }
       post.likes.push(req.user._id);
@@ -132,13 +153,11 @@ const PostController = {
         { $pull: { likedPosts: post._id } },
         { new: true }
       );
-      res
-        .status(200)
-        .json({
-          message: "Post unliked successfully",
-          likesCount: post.likes.length,
-          post,
-        });
+      res.status(200).json({
+        message: "Post unliked successfully",
+        likesCount: post.likes.length,
+        post,
+      });
     } catch (error) {
       error.origin = "post";
       next(error);

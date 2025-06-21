@@ -1,10 +1,10 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
-require("dotenv").config();
-const PORT = 3000;
-const { typeError } = require("./middlewares/errors");
 const { dbConnection } = require("./config/config");
+const { typeError } = require("./middlewares/errors");
 
+dbConnection();
 app.use(express.json());
 
 app.use("/posts", require("./routes/posts"));
@@ -12,6 +12,5 @@ app.use("/users", require("./routes/users"));
 app.use("/comments", require("./routes/comments"));
 app.use(typeError);
 
-dbConnection();
-
-app.listen(PORT, () => console.log("Server up in port " + PORT));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server up on port ${PORT}`));

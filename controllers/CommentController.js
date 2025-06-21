@@ -75,7 +75,7 @@ const CommentController = {
       if (!comment) {
         return res.status(404).json({ message: "Comment not found" });
       }
-      if (comment.likes.includes(req.user._id)) {
+      if (comment.likes.some((likeId) => likeId.equals(req.user._id))) {
         return res.status(400).json({ message: "Comment already liked" });
       }
       comment.likes.push(req.user._id);

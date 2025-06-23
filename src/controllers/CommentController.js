@@ -15,11 +15,15 @@ const CommentController = {
       if (!post) {
         return res.status(404).json({ message: "Post not found" });
       }
-      const comment = await Comment.create({
+      const commentData = {
         postId,
         userId: req.user._id,
         content,
-      });
+      };
+      if (req.file) {
+        commentData.image = req.file.path;
+      }
+      const comment = await Comment.create(commentData);
       res.status(201).json(comment);
     } catch (error) {
       error.origin = "comment";

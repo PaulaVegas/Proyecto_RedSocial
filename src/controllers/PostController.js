@@ -11,7 +11,12 @@ const PostController = {
           .status(400)
           .json({ message: "Title and content are required" });
       }
-      const post = await Post.create({ ...req.body, userId: req.user._id });
+      const newPostData = {
+        ...req.body,
+        userId: req.user._id,
+        image: req.file ? req.file.path : null,
+      };
+      const post = await Post.create(newPostData);
       await User.findByIdAndUpdate(req.user._id, {
         $push: { postIds: post._id },
       });

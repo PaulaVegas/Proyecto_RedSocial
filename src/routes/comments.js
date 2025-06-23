@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const CommentController = require("../controllers/CommentController");
 const authentication = require("../middlewares/authentication");
-const upload = require("../middleware/multer");
+const upload = require("../middlewares/multer");
 
 router.post(
   "/",

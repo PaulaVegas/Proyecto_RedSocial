@@ -4,6 +4,9 @@ const app = express();
 const { dbConnection } = require("./config/config");
 const { typeError } = require("./middlewares/errors");
 
+const swaggerUI = require("swagger-ui-express");
+const docs = require("./docs/index");
+
 dbConnection();
 app.use(express.json());
 

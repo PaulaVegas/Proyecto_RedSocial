@@ -4,8 +4,8 @@
   "description": "![banner](./assets/bannerProyecto2.png)\r ![Node.js](https://img.shields.io/badge/Node.js-339933?logo=nodedotjs&logoColor=white)\r ![Express](https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white)\r ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?logo=mongodb&logoColor=white)\r ![Mongoose](https://img.shields.io/badge/Mongoose-880000?logo=mongoose&logoColor=white)",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
     "test": "jest"
   },
   "repository": {
@@ -32,7 +32,8 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.17.0",
-    "mongoose": "^8.15.2"
+    "mongoose": "^8.15.2",
+    "swagger-ui-express": "^5.0.1"
   },
   "jest": {
     "testEnvironment": "node"

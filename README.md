@@ -22,78 +22,36 @@ This backend project demonstrates a RESTful API built using **Node.js**, **Expre
 
 ## 🛠️ Tech Stack
 
-- [![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/) + [![Mongoose](https://img.shields.io/badge/Mongoose-880000?style=for-the-badge&logo=mongoose&logoColor=white)](https://mongoosejs.com/)
-
-- [![Express](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)](https://expressjs.com/)
-- **Node.js**
-- **JWT** for token-based authentication
-- **Multer** for image uploads
-- **Nodemailer** for email confirmation
+<p align="center"> <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" /> <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge&logo=express&logoColor=white" /> <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" /> <img src="https://img.shields.io/badge/Mongoose-880000?style=for-the-badge&logo=mongoose&logoColor=white" /> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" /> </p>
 
 ## Features
 
-### Authentication
+### Authentication & Security
+
+<p align="center"> <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" /> <img src="https://img.shields.io/badge/Bcrypt-00599C?style=for-the-badge&logo=lock&logoColor=white" /> </p>
 
 - User registration with password hashing.
 - Login system that returns a JWT upon successful authentication.
 - Middleware to protect routes and verify token.
 - Email verification required before login.
 
-### CRUD Operations
+### Endpoints
 
 - Create, read, update and delete:
   - **Users**
   - **Posts**
   - **Comments**
-
-### Comments
-
-- Full comments CRUD.
 - Ability to like and unlike comments.
-- Middleware to check ownership before edit/delete.
-
-### File Management
-
 - Upload images via **Multer** for:
   - Posts
   - Comments
   - User profiles
-
-### Follower System
-
-- Follow/unfollow other users.
-- Retrieve a list of followers.
-- Access posts and followers of the logged-in user.
-
-### Search & Relationships
-
-- Search users by name or ID.
-- Retrieve all posts with:
-  - Author's data
-  - Comments and each comment's author
+- Follower system
 
 ## Requirements
 
-- **Node.js**.
 - **MongoDB Atlas** (or local MongoDB).
-- Example `keys.js`:
-
-```bash
-module.exports = {
-	MONGO_URI:
-	"mongodb+srv://<name>:<password>@cluster0-tuqrv.mongodb.net/test?retryWrites=true&w=majority",
-	JWT_SECRET: process.env.JWT_SECRET || "default_secret_key",
-	};
-```
-
-- Example `docker-compose.example.yml`:
-
-```bash
- environment:
-     MONGO_INITDB_ROOT_USERNAME: nombreusuario
-     MONGO_INITDB_ROOT_PASSWORD: contraseñaDB
-     MONGO_INITDB_DATABASE: nombreDB
-```
+- Create `.env` and `docker-compose.yml` with the example files provided.
 
 ## 🚀 Getting started
 
@@ -113,6 +71,20 @@ npm install
 
 ```bash
 npm start
+```
+
+## API Documentation
+
+![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
+
+This project includes interactive API documentation powered by Swagger UI, allowing you to explore all available endpoints directly from your browser.
+
+### Access
+
+With the API running, visit
+
+```bash
+http://localhost:3000/api-docs
 ```
 
 ## Credits

@@ -1,4 +1,4 @@
-![banner](./assets/bannerProyecto2.png)
+![banner](./src/assets/bannerProyecto2.png)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?logo=nodedotjs&logoColor=white)
 ![Express](https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?logo=mongodb&logoColor=white)

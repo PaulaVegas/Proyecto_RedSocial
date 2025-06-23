@@ -10,7 +10,7 @@ POSTS:
 ✔ Likes (Like and unlike a post) @done (6/21/2025, 12:37:52 PM)
 ✔ Middleware to check if the user is authenticated for creating, updating, and deleting posts @done (6/16/2025, 10:37:26 AM)
     Extras:
-        ☐ Multer to upload imgs 
+        ✔ Multer to upload imgs @done (6/23/2025, 7:35:07 PM)
         ✔ Endpoint that returns posts should also return the users that made the comments in the posts @done (6/21/2025, 1:12:06 PM)
 
 USERS:
@@ -20,7 +20,7 @@ USERS:
 ✔ Logout a user @done (6/16/2025, 10:37:52 AM)
 ✔ Implement validation. If not valid, return a message @done (6/16/2025, 10:37:56 AM)
     Extras:
-        ☐ Multer to upload profile imgs
+        ✔ Multer to upload profile imgs @done (6/23/2025, 7:35:02 PM)
         ✔ Followers (Follow and unfollow a user) @done (6/21/2025, 1:12:10 PM)
         ✔ The connected user info endpoint should also return their posts and number of followers @done (6/21/2025, 1:12:54 PM)
         ☐ Email validation (send a verification email after registration)
@@ -37,7 +37,7 @@ COMMENTS:
 ✔ Validate all fields in the comment. If not valid, return a message @done (6/21/2025, 1:13:39 PM)
     Extras:
         ☐ Middleware to check the authorship for updating and deleting comments
-        ☐ Multer to upload imgs
+        ✔ Multer to upload imgs @done (6/23/2025, 7:34:57 PM)
         ✔ Likes (Like and unlike a comment) @done (6/21/2025, 1:13:02 PM)
 
 ☐ Create documentation for the API

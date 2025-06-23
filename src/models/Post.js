@@ -4,6 +4,7 @@ const PostSchema = new mongoose.Schema(
   {
     title: String,
     content: String,
+    image: { type: String },
     commentIds: [
       {
         type: mongoose.Schema.Types.ObjectId,

@@ -16,6 +16,7 @@ const CommentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    image: { type: String },
     likes: [{ type: mongoose.Schema.Types.ObjectId }],
   },
   {

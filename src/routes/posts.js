@@ -2,8 +2,14 @@ const express = require("express");
 const router = express.Router();
 const PostController = require("../controllers/PostController");
 const authentication = require("../middlewares/authentication");
+const upload = require("../middleware/multer");
 
-router.post("/newPost", authentication, PostController.createPost);
+router.post(
+  "/newPost",
+  upload.single("image"),
+  authentication,
+  PostController.createPost
+);
 router.get("/", PostController.getAll);
 router.get("/:_id", PostController.getById);
 router.get("/title/:title", PostController.getByTitle);

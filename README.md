@@ -31,9 +31,9 @@ This backend project demonstrates a RESTful API built using **Node.js**, **Expre
 <p align="center"> <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" /> <img src="https://img.shields.io/badge/Bcrypt-00599C?style=for-the-badge&logo=lock&logoColor=white" /> </p>
 
 - User registration with password hashing.
-- Login system that returns a JWT upon successful authentication.
-- Middleware to protect routes and verify token.
 - Email verification required before login.
+- Login system that returns a JWT upon successful authentication.
+
 
 ### Endpoints
 
@@ -41,7 +41,7 @@ This backend project demonstrates a RESTful API built using **Node.js**, **Expre
   - **Users**
   - **Posts**
   - **Comments**
-- Ability to like and unlike comments.
+- Like/unlike comments and posts.
 - Upload images via **Multer** for:
   - Posts
   - Comments
@@ -51,7 +51,7 @@ This backend project demonstrates a RESTful API built using **Node.js**, **Expre
 ## Requirements
 
 - **MongoDB Atlas** (or local MongoDB).
-- Create `.env` and `docker-compose.yml` with the example files provided.
+- Create `.env` with the example file provided.
 
 ## 🚀 Getting started
 

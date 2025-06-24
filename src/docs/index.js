@@ -6,8 +6,10 @@ const comments = require("./comments");
 
 module.exports = {
 	...basicInfo,
-	...users,
-	...posts,
-	...comments,
+	paths: {
+		...users.paths,
+		...posts.paths,
+		...comments.paths,
+	},
 	...components,
 };

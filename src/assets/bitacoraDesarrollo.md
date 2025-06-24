@@ -43,5 +43,5 @@ Testing broke when implementing .env
 | 13/06/2025 | `feat: Post CRUD`                            | CRUD/posts     |
 | 14/06/2025 | `feat: User CRUD with auth`                  | CRUD/Users     |
 | 16/06/2025 | `feat: comments CRUD`                        | develop        |
-| /06/2025   | `feat: `                                     | feature/       |
-| /06/2025   | `feature: upload product images with multer` | feature/multer |
+| 24 /06/2025   | `feat: multer and isAuth`                                     | develop      |
+| /06/2025   | `feat: finished project` |  |

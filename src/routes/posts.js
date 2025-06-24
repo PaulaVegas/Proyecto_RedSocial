@@ -1,14 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const PostController = require("../controllers/PostController");
-const authentication = require("../middlewares/authentication");
+
+const { authentication } = require("../middlewares/authentication");
+
 const upload = require("../middlewares/multer");
 
 router.post(
-  "/newPost",
-  upload.single("image"),
-  authentication,
-  PostController.createPost
+	"/newPost",
+	upload.single("image"),
+	authentication,
+	PostController.createPost
 );
 router.get("/", PostController.getAll);
 router.get("/:_id", PostController.getById);

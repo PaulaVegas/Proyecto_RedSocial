@@ -25,8 +25,8 @@ USERS:
         ✔ The connected user info endpoint should also return their posts and number of followers @done (6/21/2025, 1:12:54 PM)
         ☐ Email validation (send a verification email after registration)
         ✔ Login validation (if unverified email, can't login) @done (6/18/2025, 7:41:40 PM)
-        ☐ Endpoint should also return the name of the followers
-        ☐ Search user by name
+        ✔ Endpoint should also return the name of the followers @done (6/24/2025, 2:45:51 PM)
+        ✔ Search user by name @done (6/24/2025, 2:52:20 PM)
         ✔ Search user by id @done (6/16/2025, 10:38:19 AM)
 
 COMMENTS:
@@ -36,7 +36,7 @@ COMMENTS:
 ✔ Get all comments in a post @done (6/16/2025, 11:44:39 AM)
 ✔ Validate all fields in the comment. If not valid, return a message @done (6/21/2025, 1:13:39 PM)
     Extras:
-        ☐ Middleware to check the authorship for updating and deleting comments
+        ✔ Middleware to check the authorship for updating and deleting comments @done (6/24/2025, 2:57:53 PM)
         ✔ Multer to upload imgs @done (6/23/2025, 7:34:57 PM)
         ✔ Likes (Like and unlike a comment) @done (6/21/2025, 1:13:02 PM)
 

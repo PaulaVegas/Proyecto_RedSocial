@@ -59,7 +59,16 @@ const UserController = {
 			if (user.tokens.length > 3) user.tokens.shift();
 			user.tokens.push(token);
 			await user.save();
-			res.status(200).send({ message: "Welcome, " + user.username, token });
+			res.status(200).send({
+				message: "Welcome, " + user.username,
+				token,
+				user: {
+					id: user._id,
+					username: user.username,
+					email: user.email,
+					profileImage: user.profileImage,
+				},
+			});
 		} catch (error) {
 			error.origin = "user";
 			next(error);

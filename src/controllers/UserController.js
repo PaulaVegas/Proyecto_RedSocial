@@ -132,7 +132,9 @@ const UserController = {
 			const hashedPassword = password
 				? bcrypt.hashSync(password, 10)
 				: undefined;
-			const updatedUserData = { ...rest, password: hashedPassword };
+			const updatedUserData = { ...rest };
+			if (hashedPassword) updatedUserData.password = hashedPassword;
+			if (req.file) updatedUserData.profileImage = req.file.path;
 			const user = await User.findByIdAndUpdate(
 				req.params._id,
 				updatedUserData,

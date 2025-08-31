@@ -13,7 +13,12 @@ router.get("/", authentication, UserController.getAll);
 router.get("/info", authentication, UserController.getInfo);
 router.get("/:username", authentication, UserController.getByName);
 router.get("/:_id", authentication, UserController.getById);
-router.put("/:_id", authentication, UserController.update);
+router.put(
+	"/:_id",
+	authentication,
+	upload.single("image"),
+	UserController.update
+);
 router.delete("/:_id", authentication, UserController.delete);
 router.post("/:_id/follow", authentication, UserController.followUser);
 router.post("/:_id/unfollow", authentication, UserController.unfollowUser);

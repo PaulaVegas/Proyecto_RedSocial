@@ -19,5 +19,6 @@ router.delete("/:_id", authentication, PostController.delete);
 router.put("/:_id", authentication, PostController.update);
 router.post("/:_id/like", authentication, PostController.likePost);
 router.post("/:_id/unlike", authentication, PostController.unlikePost);
+router.post("/:_id/toggle-like", authentication, PostController.toggleLike);
 
 module.exports = router;

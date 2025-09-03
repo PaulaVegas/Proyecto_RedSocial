@@ -11,6 +11,7 @@ router.post("/login", UserController.login);
 router.delete("/logout", authentication, UserController.logout);
 router.get("/", authentication, UserController.getAll);
 router.get("/info", authentication, UserController.getInfo);
+router.get("/suggestions", authentication, UserController.getSuggestions);
 router.get("/:username", authentication, UserController.getByName);
 router.get("/:_id", authentication, UserController.getById);
 router.put(

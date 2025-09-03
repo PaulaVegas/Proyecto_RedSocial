@@ -118,7 +118,11 @@ const UserController = {
 				.populate("likedPosts")
 				.populate({
 					path: "followers",
-					select: "username",
+					select: "username profileImage",
+				})
+				.populate({
+					path: "following",
+					select: "username profileImage",
 				});
 			res.status(200).send(user);
 		} catch (error) {
@@ -274,6 +278,21 @@ const UserController = {
 			};
 
 			res.status(200).send(userInfo);
+		} catch (error) {
+			error.origin = "user";
+			next(error);
+		}
+	},
+	async getSuggestions(req, res, next) {
+		try {
+			const currentUserId = req.user._id;
+			const suggestions = await User.aggregate([
+				{ $match: { _id: { $ne: currentUserId } } },
+				{ $sample: { size: 5 } },
+				{ $project: { username: 1, profileImage: 1 } },
+			]);
+
+			res.status(200).json(suggestions);
 		} catch (error) {
 			error.origin = "user";
 			next(error);

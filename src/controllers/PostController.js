@@ -11,6 +11,7 @@ const PostController = {
 					.status(400)
 					.json({ message: "Title and content are required" });
 			}
+
 			const post = await Post.create({
 				title,
 				content,

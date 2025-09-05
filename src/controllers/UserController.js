@@ -124,7 +124,14 @@ const UserController = {
 					path: "following",
 					select: "username profileImage",
 				});
-			res.status(200).send(user);
+			const posts = await Post.find({ userId: req.user._id })
+				.populate({
+					path: "commentIds",
+					populate: { path: "userId", select: "username" },
+				})
+				.populate("userId", "username");
+
+			res.status(200).json({ ...user.toObject(), posts });
 		} catch (error) {
 			error.origin = "user";
 			next(error);

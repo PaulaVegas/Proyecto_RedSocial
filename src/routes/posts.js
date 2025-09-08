@@ -32,8 +32,13 @@ router.post(
 router.get("/", PostController.getAll);
 router.get("/:_id", PostController.getById);
 router.get("/title/:title", PostController.getByTitle);
-router.delete("/:_id", authentication, PostController.delete);
-router.put("/:_id", authentication, PostController.update);
+router.delete("/delete/:_id", authentication, PostController.delete);
+router.put(
+	"/update/:_id",
+	authentication,
+	upload.single("image"),
+	PostController.update
+);
 router.post("/:_id/like", authentication, PostController.likePost);
 router.post("/:_id/unlike", authentication, PostController.unlikePost);
 router.post("/:_id/toggle-like", authentication, PostController.toggleLike);

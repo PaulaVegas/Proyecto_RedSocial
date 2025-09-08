@@ -1,6 +1,7 @@
 const Post = require("../models/Post");
 const User = require("../models/User");
 const Comment = require("../models/Comment");
+const cloudinary = require("cloudinary").v2;
 
 const PostController = {
 	async createPost(req, res, next) {
@@ -32,21 +33,30 @@ const PostController = {
 		try {
 			const page = parseInt(req.query.page) || 1;
 			const limit = parseInt(req.query.limit) || 10;
+
 			const posts = await Post.find()
-				.limit(limit)
+				.sort({ createdAt: -1 })
 				.skip((page - 1) * limit)
+				.limit(limit)
 				.populate({
 					path: "commentIds",
 					populate: { path: "userId", select: "username" },
 				})
 				.populate("userId", "username");
-			console.log(posts);
+
+			const total = await Post.countDocuments();
+
 			const postsWithLikes = posts.map((post) => ({
 				...post.toObject(),
 				likesCount: post.likes ? post.likes.length : 0,
 			}));
 
-			res.status(200).json(postsWithLikes);
+			res.status(200).json({
+				posts: postsWithLikes,
+				total,
+				page,
+				pages: Math.ceil(total / limit),
+			});
 		} catch (error) {
 			console.error(error);
 			next(error);
@@ -101,17 +111,37 @@ const PostController = {
 			next(error);
 		}
 	},
-
 	async update(req, res, next) {
 		try {
-			const post = await Post.findByIdAndUpdate(req.params._id, req.body, {
-				new: true,
-				runValidators: true,
-			});
+			const post = await Post.findById(req.params._id);
 			if (!post) {
 				return res.status(404).json({ message: "Post not found" });
 			}
-			res.status(200).json(post);
+
+			const updateData = {
+				title: req.body.title,
+				content: req.body.content,
+				image: post.image,
+			};
+
+			if (req.file) {
+				if (post.image) {
+					const parts = post.image.split("/");
+					const filename = parts[parts.length - 1];
+					const publicId = filename.split(".")[0];
+
+					await cloudinary.uploader.destroy(`meowspace_posts/${publicId}`);
+				}
+				updateData.image = req.file.path;
+			}
+
+			const updatedPost = await Post.findByIdAndUpdate(
+				req.params._id,
+				{ $set: updateData },
+				{ new: true, runValidators: true }
+			);
+
+			res.status(200).json(updatedPost);
 		} catch (error) {
 			error.origin = "post";
 			next(error);
@@ -123,7 +153,6 @@ const PostController = {
 			const post = await Post.findById(req.params._id);
 			if (!post) return res.status(404).json({ message: "Post not found" });
 
-			// Convierte a string para comparar fácilmente
 			const userIdStr = req.user._id.toString();
 
 			if (post.likes.some((id) => id.toString() === userIdStr)) {

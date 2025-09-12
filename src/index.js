@@ -29,7 +29,7 @@ const upload = multer({ storage });
 dbConnection();
 app.use(
 	cors({
-		origin: "https://proyecto-frontend-red-social.vercel.app/",
+		origin: "https://proyecto-frontend-red-social.vercel.app",
 		credentials: true,
 	})
 );

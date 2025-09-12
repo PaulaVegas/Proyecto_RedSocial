@@ -84,15 +84,39 @@ const PostController = {
 	async getByTitle(req, res, next) {
 		try {
 			const searchedTitle = req.params.title;
-			if (searchedTitle.length > 20) {
-				return res.status(400).json({ message: "Title length exceeds limit" });
+			console.log("🔍 Searching title:", searchedTitle);
+
+			if (!searchedTitle || searchedTitle.length > 100) {
+				return res.status(400).json({ message: "Title length is invalid" });
 			}
-			const posts = await Post.find({
-				$text: {
-					$search: searchedTitle,
-				},
+
+			const page = parseInt(req.query.page) || 1;
+			const limit = parseInt(req.query.limit) || 10;
+
+			const query = {
+				title: { $regex: searchedTitle, $options: "i" },
+			};
+			console.log("📦 MongoDB query:", query);
+
+			const totalPosts = await Post.countDocuments(query);
+			const totalPages = Math.ceil(totalPosts / limit);
+
+			const posts = await Post.find(query)
+				.populate({
+					path: "commentIds",
+					populate: { path: "userId", select: "username" },
+				})
+				.populate("userId", "username")
+				.sort({ createdAt: -1 })
+				.skip((page - 1) * limit)
+				.limit(limit);
+
+			res.status(200).json({
+				posts,
+				page,
+				totalPages,
+				totalPosts,
 			});
-			res.status(200).json(posts);
 		} catch (error) {
 			error.origin = "post";
 			next(error);

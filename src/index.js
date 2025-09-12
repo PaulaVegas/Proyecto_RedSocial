@@ -30,6 +30,7 @@ dbConnection();
 app.use(
 	cors({
 		origin: "https://proyecto-frontend-red-social.vercel.app",
+		// origin: "http://localhost:5173",
 		credentials: true,
 	})
 );

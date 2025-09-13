@@ -47,7 +47,7 @@ app.use(
 );
 app.post("/upload", upload.single("picture"), (req, res) => {
 	res.status(200).json({
-		url: req.file,
+		url: req.file.path,
 	});
 });
 const PORT = process.env.PORT || 3000;
